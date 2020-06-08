@@ -115,7 +115,8 @@ function startApp() {
     var loadTimerListener = function (event) {
         if (event.type === "load-start") {
             console.time("load-data");
-        } else if (event.type === "load-end") {
+        }
+        else if (event.type === "load-end") {
             console.timeEnd("load-data");
 
             // nome no json para fazer download
@@ -125,6 +126,7 @@ function startApp() {
             file_name = file_name[0]
             var downloadButton = document.querySelector("a.ui-btn.ui-btn-inline.ui-btn-icon-notext.ui-mini.download-state.ui-icon-action")
             downloadButton.download = `${file_name}_annotations.json`;
+        }
     };
     // abort shortcut listener
     var abortOnCrtlX = function (event) {
