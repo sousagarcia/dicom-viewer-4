@@ -94,6 +94,6 @@ button.ui-btn.ui-btn-b{
     padding: 10px;
 }
 
-#help_page{
+#help_page, #tags_page, #drawList_page{
     background-color: black;
 }
