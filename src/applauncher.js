@@ -125,6 +125,7 @@ function startApp() {
             console.timeEnd("load-data");
         }
     };
+
     // abort shortcut listener
     var abortOnCrtlX = function (event) {
         if (event.ctrlKey && event.keyCode === 88 ) { // crtl-x
@@ -132,7 +133,6 @@ function startApp() {
             myapp.abortLoad();
         }
     };
-
 
     // muda de ferramenta
     function changeTool(value){
@@ -194,8 +194,8 @@ function startApp() {
     // keyboard shortcuts listener
     var keyShortcut = function (event) {
         if (event.keyCode === 83 ) { // key S enable scroll
-            myapp.xdraw = false
-            changeTool(2)
+            //myapp.xdraw = false
+            //changeTool(2)
         }
         else if (event.keyCode === 87 ) { // key W enable windowlevel
             myapp.xdraw = false
