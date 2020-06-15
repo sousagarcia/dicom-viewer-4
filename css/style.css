@@ -106,11 +106,11 @@ select {
 }
 
 
-input.imagefiles::-webkit-file-upload-button {
+input.imagefiles::-webkit-file-upload-button,  input.imagefolder::-webkit-file-upload-button{
     visibility: hidden;
 }
 
-input.imagefiles::before {
+input.imagefiles::before, input.imagefolder::before {
     content: 'Select some files';
     display: inline-flex;
     background-color:rgb(51, 51, 51);

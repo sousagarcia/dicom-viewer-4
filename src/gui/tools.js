@@ -565,7 +565,7 @@ dwvjq.gui.Scroll = function (app)
      * @returns Boolean True if the tool can be shown.
      */
     this.initialise = function () {
-        return app.canScroll();
+        return false //app.canScroll();
     };
 
 }; // class dwvjq.gui.Scroll
