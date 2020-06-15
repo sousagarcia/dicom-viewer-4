@@ -78,6 +78,15 @@ dwvjq.gui.FileLoad = function (app)
             self.onchange(event);
         }
         app.loadFiles(event.target.files);
+
+        // arquivos carregados
+        var files_img = (Array.from(event.target.files)).filter(value => value.name.split(".").pop().toLowerCase() !== "json")
+        if (files_img.length){
+            app.xfiles = files_img
+            app.currentSlice = 1
+            app.annotations = null
+            app.finishAnnotations = false
+        }
     }
 
     /**

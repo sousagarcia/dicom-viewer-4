@@ -74,7 +74,12 @@ function startApp() {
     // main application
     var myapp = new dwv.App();
     myapp.init(options);
+
     myapp['xdraw'] = false
+    myapp['xfiles'] = null
+    myapp['xcurrentSlice'] = 1
+    myapp['annotations'] = null
+    myapp['finishAnnotations'] = false
 
     // show help
     var isMobile = true;
@@ -118,14 +123,6 @@ function startApp() {
         }
         else if (event.type === "load-end") {
             console.timeEnd("load-data");
-
-            // nome no json para fazer download
-            var file_name = document.querySelector('.imagefiles').files
-            file_name = file_name[0]["name"]
-            file_name = file_name.split('.')
-            file_name = file_name[0]
-            var downloadButton = document.querySelector("a.ui-btn.ui-btn-inline.ui-btn-icon-notext.ui-mini.download-state.ui-icon-action")
-            downloadButton.download = `${file_name}_annotations.json`;
         }
     };
     // abort shortcut listener
@@ -137,6 +134,7 @@ function startApp() {
     };
 
 
+    // muda de ferramenta
     function changeTool(value){
         var sel = window.document.querySelector('select.toolSelect')
         sel.options[value].selected = true
@@ -152,18 +150,22 @@ function startApp() {
         sel.addEventListener('change', function (e) {})
     }
 
-
+    // botão direito do mouse move a imagem. botão esquerdo ativa a ferramenta de desenho
     window.document.querySelector('.layerContainer').onmousedown = function(eventData) {
-        if (eventData.button === 2) {
-            myapp.xdraw = false
-            changeTool(0)
-        }
-        else if (eventData.button === 0 && !(myapp.xdraw)) {
-            myapp.xdraw = true
-            changeTool(1)
+        if (window.document.querySelector('select.toolSelect').value != 'WindowLevel'){
+            if (eventData.button === 2) {
+                myapp.xdraw = false
+                changeTool(0)
+            }
+            else if (eventData.button === 0 && !(myapp.xdraw)) {
+                myapp.xdraw = true
+                changeTool(1)
+            }
         }
     }
 
+
+    // roda do mouse habilita zoom quando não estiver na ferramenta de scroll
     window.document.querySelector('.layerContainer').onwheel = function() {
         if (window.document.querySelector('select.toolSelect').value != 'Scroll'){
             myapp.xdraw = false
@@ -172,11 +174,36 @@ function startApp() {
     }
 
 
+    // roda do mouse altera o nome da imagem que está sendo exibida
+    window.document.querySelector('.layerContainer').addEventListener("wheel", event => {
+        if (window.document.querySelector('select.toolSelect').value == 'Scroll'){
+            const delta = Math.sign(event.deltaY);
+            myapp.xcurrentSlice -= delta
+            if (myapp.xcurrentSlice > myapp.xfiles.length){
+                myapp.xcurrentSlice = myapp.xfiles.length
+            }
+            else if (myapp.xcurrentSlice < 1){
+                myapp.xcurrentSlice = 1
+            }
+            window.document.querySelector('li.info-tl-0').innerHTML = myapp.xfiles[myapp.xcurrentSlice - 1].name
+            console.info(myapp.xcurrentSlice);
+        }
+    });
+
+
     // keyboard shortcuts listener
     var keyShortcut = function (event) {
-        if (event.keyCode === 83 ) {
+        if (event.keyCode === 83 ) { // key S enable scroll
             myapp.xdraw = false
             changeTool(2)
+        }
+        else if (event.keyCode === 87 ) { // key W enable windowlevel
+            myapp.xdraw = false
+            changeTool(3)
+        }
+        else if (event.keyCode === 27 ) { // key ESC enable zoom
+            myapp.xdraw = false
+            changeTool(0)
         }
     }
     window.addEventListener("keydown", keyShortcut);
