@@ -97,3 +97,35 @@ button.ui-btn.ui-btn-b{
 #help_page, #tags_page, #drawList_page{
     background-color: black;
 }
+
+
+select {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    padding: 22px;
+}
+
+
+input.imagefiles::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+input.imagefiles::before {
+    content: 'Select some files';
+    display: inline-flex;
+    background-color:rgb(51, 51, 51);
+    border: 1px solid rgba(17, 17, 17, 0.548);
+    border-radius: 3px;
+    padding: 10px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+
+div.ui-input-text.ui-body-inherit.ui-corner-all.ui-mini.ui-shadow-inset.ui-input-has-clear{
+    border: none;
+    box-shadow: none;
+}

@@ -223,9 +223,10 @@ dwvjq.gui.WindowLevel = function (app)
      */
     this.initialise = function ()
     {
-        if (!app.canWindowLevel()) {
-            return false;
-        }
+        // uncomment this if you want disable windowlevel
+        // if (!app.canWindowLevel()) {
+        //     return false;
+        // }
 
         // create new preset select
         var wlSelector = dwvjq.html.createHtmlSelect("presetSelect",
